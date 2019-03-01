@@ -15,7 +15,7 @@ Flutter has no default support to render html so this package helps you to rende
 * p
 * em
 * b
-* img
+* img with html,file and BASE64
 * video
 * h1, h2, h3, h4, h5, h6
 
@@ -29,7 +29,8 @@ Flutter has no default support to render html so this package helps you to rende
 ```yaml
 
 dependencies:
-  flutter_html_view: ^0.5.11
+  flutter_html_view:
+    git: https://github.com/reemii-cn/FlutterHtmlView.git
   
 ```
 
