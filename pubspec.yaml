@@ -13,7 +13,7 @@ dependencies:
   cached_network_image: "^0.7.0"
 
   flutter_markdown:
-    git: https://github.com/flutter/flutter_markdown.git
+    git: https://github.com/reemii-cn/flutter_markdown.git
   html2md: ^0.2.1
 
 
