@@ -11,11 +11,11 @@ dependencies:
   html: ^0.13.3+3
   video_player: "^0.7.2"
   cached_network_image: "^1.1.0"
+  flutter_inappbrowser: ^1.2.1
 
   flutter_markdown:
     git: https://github.com/reemii-cn/flutter_markdown.git
   html2md: ^0.2.1
-
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
