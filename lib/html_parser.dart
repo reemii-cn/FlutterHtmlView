@@ -76,18 +76,29 @@ class HtmlParser {
       widgetList.add(MyInAppWebView(
           webUrl: src,
           webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 400.0)));
-    } else if (!e.outerHtml.contains("<img") ||
-        !e.outerHtml.contains("<video") ||
-        !e.outerHtml.contains("<iframe") ||
-        !e.hasContent()) {
-      widgetList.add(new HtmlText(
-        data: e.outerHtml,
-        onLaunchFail: this.onLaunchFail,
-        overflow: this.overflow,
-        maxLines: this.maxLines,
-      ));
-    } else if (e.children.length > 0)
-      e.children.forEach((e) => _parseChildren(e, widgetList));
+      // } else if (!e.outerHtml.contains("<img") ||
+      //     !e.outerHtml.contains("<video") ||
+      //     !e.outerHtml.contains("<iframe") ||
+      //     !e.hasContent()) {
+      //   widgetList.add(new HtmlText(
+      //     data: e.outerHtml,
+      //     onLaunchFail: this.onLaunchFail,
+      //     overflow: this.overflow,
+      //     maxLines: this.maxLines,
+      //   ));
+    } else {
+      print(e);
+      print(e.children);
+      if (e.children.length > 0)
+        e.children.forEach((e) => _parseChildren(e, widgetList));
+      else
+        widgetList.add(new HtmlText(
+          data: e.outerHtml,
+          onLaunchFail: this.onLaunchFail,
+          overflow: this.overflow,
+          maxLines: this.maxLines,
+        ));
+    }
   }
 
   List<Widget> parseHTML(String html) {
