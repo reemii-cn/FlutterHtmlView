@@ -25,17 +25,17 @@ class HtmlParser {
       if (src.startsWith("http") || src.startsWith("https")) {
         widgetList.add(new CachedNetworkImage(
           imageUrl: src,
-          fit: BoxFit.contain,
+          fit: BoxFit.scaleDown,
         ));
       } else if (src.startsWith('data:image')) {
         var exp = new RegExp(r'data:.*;base64,');
         var base64Str = src.replaceAll(exp, '');
         var bytes = base64.decode(base64Str);
-        widgetList.add(new Image.memory(bytes, fit: BoxFit.contain));
+        widgetList.add(new Image.memory(bytes, fit: BoxFit.scaleDown));
       } else if (baseUrl != null && baseUrl.isNotEmpty && src.startsWith("/")) {
         widgetList.add(new CachedNetworkImage(
           imageUrl: baseUrl + src,
-          fit: BoxFit.contain,
+          fit: BoxFit.scaleDown,
         ));
       }
     } else if (e.localName == "video") {
