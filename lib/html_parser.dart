@@ -89,7 +89,7 @@ class HtmlParser {
     } else {
       print(e);
       print(e.children);
-      if (e.children.length > 0)
+      if (e.children.length > 0 || !_onlyHasText(e.children))
         e.children.forEach((e) => _parseChildren(e, widgetList));
       else
         widgetList.add(new HtmlText(
@@ -99,6 +99,15 @@ class HtmlParser {
           maxLines: this.maxLines,
         ));
     }
+  }
+
+  bool _onlyHasText(List<dom.Element> elements) {
+    for (var ele in elements) {
+      if (ele.localName == 'img' ||
+          ele.localName == 'iframe' ||
+          ele.localName == 'video') return false;
+    }
+    return true;
   }
 
   List<Widget> parseHTML(String html) {
