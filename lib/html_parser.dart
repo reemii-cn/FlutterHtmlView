@@ -87,8 +87,8 @@ class HtmlParser {
       //     maxLines: this.maxLines,
       //   ));
     } else {
-      print(e);
-      print(e.children);
+      // print(e);
+      // print(e.children);
       if (e.children.length > 0 || !_onlyHasText(e.children))
         e.children.forEach((e) => _parseChildren(e, widgetList));
       else
