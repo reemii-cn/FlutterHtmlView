@@ -12,7 +12,8 @@ class HtmlText extends StatelessWidget {
 
   BuildContext ctx;
 
-  HtmlText({this.data, this.style, this.onLaunchFail, this.overflow, this.maxLines});
+  HtmlText(
+      {this.data, this.style, this.onLaunchFail, this.overflow, this.maxLines});
 
   void _launchURL(String url) async {
     try {
@@ -61,7 +62,6 @@ class HtmlText extends StatelessWidget {
     List nodes = parser.parse(this.data);
 
     TextSpan span = this._stackToTextSpan(nodes, context);
-
 
     RichText contents;
     if (overflow != null && maxLines != null) {
@@ -520,8 +520,9 @@ class HtmlParser {
             break;
 
           case 'font-size':
-             fontSize = double.parse(value);
-             
+            var reg = RegExp('\d+\.?\d*');
+            fontSize = double.parse(reg.stringMatch(value));
+
             break;
 
           case 'text-decoration':
