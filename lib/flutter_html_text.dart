@@ -520,7 +520,7 @@ class HtmlParser {
             break;
 
           case 'font-size':
-            var reg = RegExp('\d+\.?\d*');
+            var reg = RegExp(r'\d+\.?\d*');
             String size = reg.stringMatch(value);
             if (size?.isEmpty ?? true)
               fontSize = 14.0;
