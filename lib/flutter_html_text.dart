@@ -521,7 +521,11 @@ class HtmlParser {
 
           case 'font-size':
             var reg = RegExp('\d+\.?\d*');
-            fontSize = double.parse(reg.stringMatch(value));
+            String size = reg.stringMatch(value);
+            if (size?.isEmpty ?? true)
+              fontSize = 14.0;
+            else
+              fontSize = double.parse(reg.stringMatch(value));
 
             break;
 
