@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as cTab;
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as cTab;
+// import 'package:url_launcher/url_launcher.dart';
 
 class HtmlText extends StatelessWidget {
   final String data;
@@ -16,32 +16,32 @@ class HtmlText extends StatelessWidget {
       {this.data, this.style, this.onLaunchFail, this.overflow, this.maxLines});
 
   void _launchURL(String url) async {
-    try {
-      await cTab.launch(
-        url,
-        option: new cTab.CustomTabsOption(
-          toolbarColor: Theme.of(ctx).primaryColor,
-          enableDefaultShare: true,
-          enableUrlBarHiding: true,
-          showPageTitle: true,
-        ),
-      );
-    } catch (e) {
-      // An exception is thrown if browser app is not installed on Android device.
-      debugPrint(e.toString());
-    }
+    // try {
+    //   await cTab.launch(
+    //     url,
+    //     option: new cTab.CustomTabsOption(
+    //       toolbarColor: Theme.of(ctx).primaryColor,
+    //       enableDefaultShare: true,
+    //       enableUrlBarHiding: true,
+    //       showPageTitle: true,
+    //     ),
+    //   );
+    // } catch (e) {
+    //   // An exception is thrown if browser app is not installed on Android device.
+    //   debugPrint(e.toString());
+    // }
   }
 
   void _launchOtherURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print('Could not launch $url');
+    // if (await canLaunch(url)) {
+    //   await launch(url);
+    // } else {
+    //   print('Could not launch $url');
 
-      if (this.onLaunchFail != null) {
-        this.onLaunchFail(url);
-      }
-    }
+    //   if (this.onLaunchFail != null) {
+    //     this.onLaunchFail(url);
+    //   }
+    // }
   }
 
   TapGestureRecognizer recognizer(String url) {

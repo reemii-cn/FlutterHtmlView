@@ -7,10 +7,10 @@ homepage: https://github.com/PonnamKarthik/FlutterHtmlView
 dependencies:
   flutter:
     sdk: flutter
-  flutter_custom_tabs: "^0.6.0"
+  # flutter_custom_tabs: "^0.6.0"
   html: ^0.13.3+3
-  video_player: "^0.7.2"
-  cached_network_image: "^1.1.0"
+  # video_player: "^0.7.2"
+  # cached_network_image: "^1.1.0"
   flutter_inappbrowser: 0.6.0
 
   flutter_markdown:

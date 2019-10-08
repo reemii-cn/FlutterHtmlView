@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_text.dart';
-import 'package:flutter_html_view/flutter_html_video.dart';
+// import 'package:flutter_html_view/flutter_html_video.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 import 'flutter_native_html.dart';
 
@@ -33,42 +33,42 @@ class HtmlParser {
         var bytes = base64.decode(base64Str);
         widgetList.add(new Image.memory(bytes, fit: BoxFit.scaleDown));
       } else if (baseUrl != null && baseUrl.isNotEmpty && src.startsWith("/")) {
-        widgetList.add(new CachedNetworkImage(
-          imageUrl: baseUrl + src,
+        widgetList.add(new Image.network(
+          baseUrl + src,
           fit: BoxFit.scaleDown,
         ));
       }
     } else if (e.localName == "video") {
-      if (e.attributes.containsKey('src')) {
-        var src = e.attributes['src'];
-        // var videoElements = e.getElementsByTagName("video");
-        widgetList.add(
-          new NetworkPlayerLifeCycle(
-            src,
-            (BuildContext context, VideoPlayerController controller) =>
-                new AspectRatioVideo(controller),
-          ),
-        );
-      } else {
-        if (e.children.length > 0) {
-          e.children.forEach((dom.Element source) {
-            try {
-              if (source.attributes['type'] == "video/mp4") {
-                var src = e.children[0].attributes['src'];
-                widgetList.add(
-                  new NetworkPlayerLifeCycle(
-                    src,
-                    (BuildContext context, VideoPlayerController controller) =>
-                        new AspectRatioVideo(controller),
-                  ),
-                );
-              }
-            } catch (e) {
-              print(e);
-            }
-          });
-        }
-      }
+      // if (e.attributes.containsKey('src')) {
+      //   var src = e.attributes['src'];
+      //   // var videoElements = e.getElementsByTagName("video");
+      //   widgetList.add(
+      //     new NetworkPlayerLifeCycle(
+      //       src,
+      //       (BuildContext context, VideoPlayerController controller) =>
+      //           new AspectRatioVideo(controller),
+      //     ),
+      //   );
+      // } else {
+      //   if (e.children.length > 0) {
+      //     e.children.forEach((dom.Element source) {
+      //       try {
+      //         if (source.attributes['type'] == "video/mp4") {
+      //           var src = e.children[0].attributes['src'];
+      //           widgetList.add(
+      //             new NetworkPlayerLifeCycle(
+      //               src,
+      //               (BuildContext context, VideoPlayerController controller) =>
+      //                   new AspectRatioVideo(controller),
+      //             ),
+      //           );
+      //         }
+      //       } catch (e) {
+      //         print(e);
+      //       }
+      //     });
+      //   }
+      // }
     } else if (e.localName == 'iframe') {
       // todo 渲染iframe
       var src = e.attributes['src'];
@@ -76,19 +76,7 @@ class HtmlParser {
       widgetList.add(MyInAppWebView(
           webUrl: src,
           webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 400.0)));
-      // } else if (!e.outerHtml.contains("<img") ||
-      //     !e.outerHtml.contains("<video") ||
-      //     !e.outerHtml.contains("<iframe") ||
-      //     !e.hasContent()) {
-      //   widgetList.add(new HtmlText(
-      //     data: e.outerHtml,
-      //     onLaunchFail: this.onLaunchFail,
-      //     overflow: this.overflow,
-      //     maxLines: this.maxLines,
-      //   ));
     } else {
-      // print(e);
-      // print(e.children);
       if (e.children.length > 0 || !_onlyHasText(e.children))
         e.children.forEach((e) => _parseChildren(e, widgetList));
       else
