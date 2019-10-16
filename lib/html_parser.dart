@@ -8,7 +8,7 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
 // import 'package:video_player/video_player.dart';
 
-import 'flutter_native_html.dart';
+// import 'flutter_native_html.dart';
 
 class HtmlParser {
   TextOverflow overflow;
@@ -71,11 +71,11 @@ class HtmlParser {
       // }
     } else if (e.localName == 'iframe') {
       // todo 渲染iframe
-      var src = e.attributes['src'];
-      if (src?.isEmpty ?? true) return;
-      widgetList.add(MyInAppWebView(
-          webUrl: src,
-          webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 400.0)));
+      // var src = e.attributes['src'];
+      // if (src?.isEmpty ?? true) return;
+      // widgetList.add(MyInAppWebView(
+      //     webUrl: src,
+      //     webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 400.0)));
     } else {
       if (e.children.length > 0 || !_onlyHasText(e.children))
         e.children.forEach((e) => _parseChildren(e, widgetList));
