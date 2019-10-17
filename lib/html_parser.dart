@@ -104,6 +104,8 @@ class HtmlParser {
   }
 
   TextAlign _parseTextAlign(String textLocation) {
+    debugPrint('test ===>>>>>>>>>> $textLocation');
+    if (textLocation == null) return TextAlign.left;
     if (textLocation.contains('ql-align-center'))
       return TextAlign.center;
     else if (textLocation.contains('ql-align-right'))
