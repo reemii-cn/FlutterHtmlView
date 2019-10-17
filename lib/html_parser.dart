@@ -91,14 +91,25 @@ class HtmlParser {
       // print(e.children);
       if (e.children.length > 0 || !_onlyHasText(e.children))
         e.children.forEach((e) => _parseChildren(e, widgetList));
-      else
+      else {
+        String textLocation = e.attributes['class'];
         widgetList.add(new HtmlText(
-          data: e.outerHtml,
-          onLaunchFail: this.onLaunchFail,
-          overflow: this.overflow,
-          maxLines: this.maxLines,
-        ));
+            data: e.outerHtml,
+            onLaunchFail: this.onLaunchFail,
+            overflow: this.overflow,
+            maxLines: this.maxLines,
+            align: _parseTextAlign(textLocation)));
+      }
     }
+  }
+
+  TextAlign _parseTextAlign(String textLocation) {
+    if (textLocation.contains('ql-align-center'))
+      return TextAlign.center;
+    else if (textLocation.contains('ql-align-right'))
+      return TextAlign.right;
+    else
+      return TextAlign.left;
   }
 
   bool _onlyHasText(List<dom.Element> elements) {

@@ -9,11 +9,17 @@ class HtmlText extends StatelessWidget {
   final Widget style;
   final int maxLines;
   final Function onLaunchFail;
+  final TextAlign align;
 
   BuildContext ctx;
 
   HtmlText(
-      {this.data, this.style, this.onLaunchFail, this.overflow, this.maxLines});
+      {this.data,
+      this.style,
+      this.onLaunchFail,
+      this.overflow,
+      this.maxLines,
+      this.align = TextAlign.left});
 
   void _launchURL(String url) async {
     try {
@@ -67,6 +73,7 @@ class HtmlText extends StatelessWidget {
     if (overflow != null && maxLines != null) {
       contents = new RichText(
         text: span,
+        textAlign: align,
         softWrap: true,
         overflow: this.overflow,
         maxLines: this.maxLines,
@@ -74,6 +81,7 @@ class HtmlText extends StatelessWidget {
     } else {
       contents = new RichText(
         text: span,
+        textAlign: align,
         softWrap: true,
       );
     }
