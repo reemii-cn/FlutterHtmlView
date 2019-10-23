@@ -17,7 +17,7 @@ class HtmlParser {
   int maxLines;
   String baseUrl;
   Function onLaunchFail;
-  int moveCount = 0;
+  // int moveCount = 0;
 
   HtmlParser({this.baseUrl, this.onLaunchFail, this.overflow, this.maxLines});
 
@@ -76,14 +76,13 @@ class HtmlParser {
       // todo 渲染iframe
       var src = e.attributes['src'];
       if (src?.isEmpty ?? true) return;
-      if (moveCount < 1 || Platform.isAndroid)
+      if (Platform.isAndroid)
         widgetList.add(MyInAppWebView(
             webUrl: src,
             webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
       else {
         widgetList.add(CenterShowFrame(url: src, name: '其他'));
       }
-      moveCount++;
       // } else if (!e.outerHtml.contains("<img") ||
       //     !e.outerHtml.contains("<video") ||
       //     !e.outerHtml.contains("<iframe") ||
