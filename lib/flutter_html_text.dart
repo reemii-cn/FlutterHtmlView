@@ -64,7 +64,7 @@ class HtmlText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ctx = context;
-    HtmlParser parser = new HtmlParser(context);
+    HtmlTextParser parser = new HtmlTextParser(context);
     List nodes = parser.parse(this.data);
 
     TextSpan span = this._stackToTextSpan(nodes, context);
@@ -129,7 +129,7 @@ class HtmlText extends StatelessWidget {
   }
 }
 
-class HtmlParser {
+class HtmlTextParser {
   // Regular Expressions for parsing tags and attributes
   RegExp _startTag;
   RegExp _endTag;
@@ -139,7 +139,7 @@ class HtmlParser {
 
   final BuildContext context;
 
-  final List _emptyTags = const [
+  static const List _emptyTags = const [
     'area',
     'base',
     'basefont',
@@ -155,7 +155,7 @@ class HtmlParser {
     'param',
     'embed'
   ];
-  final List _blockTags = const [
+  static const List _blockTags = const [
     'address',
     'applet',
     'blockquote',
@@ -193,7 +193,7 @@ class HtmlParser {
     'tr',
     'ul'
   ];
-  final List _inlineTags = const [
+  static const List inlineTags = const [
     'a',
     'abbr',
     'acronym',
@@ -235,7 +235,7 @@ class HtmlParser {
     'u',
     'var'
   ];
-  final List _closeSelfTags = const [
+  static const List _closeSelfTags = const [
     'colgroup',
     'dd',
     'dt',
@@ -248,7 +248,7 @@ class HtmlParser {
     'thead',
     'tr'
   ];
-  final List _fillAttrs = const [
+  static const List _fillAttrs = const [
     'checked',
     'compact',
     'declare',
@@ -263,14 +263,14 @@ class HtmlParser {
     'readonly',
     'selected'
   ];
-  final List _specialTags = const ['script', 'style'];
+  static const List _specialTags = const ['script', 'style'];
 
   List _stack = [];
   List _result = [];
 
   Map<String, dynamic> _tag;
 
-  HtmlParser(this.context) {
+  HtmlTextParser(this.context) {
     this._startTag = new RegExp(
         r'^<([-A-Za-z0-9_]+)((?:\s+[-\w]+(?:\s*=\s*(?:(?:"[^"]*")' +
             "|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>");
@@ -293,7 +293,7 @@ class HtmlParser {
 
       // Make sure we're not in a script or style element
       if (this._getStackLastItem() == null ||
-          !this._specialTags.contains(this._getStackLastItem())) {
+          !_specialTags.contains(this._getStackLastItem())) {
         // Comment
         if (html.indexOf('<!--') == 0) {
           index = html.indexOf('-->');
@@ -378,19 +378,19 @@ class HtmlParser {
   void _parseStartTag(String tag, String tagName, String rest, int unary) {
     tagName = tagName.toLowerCase();
 
-    if (this._blockTags.contains(tagName)) {
+    if (_blockTags.contains(tagName)) {
       while (this._getStackLastItem() != null &&
-          this._inlineTags.contains(this._getStackLastItem())) {
+          inlineTags.contains(this._getStackLastItem())) {
         this._parseEndTag(this._getStackLastItem());
       }
     }
 
-    if (this._closeSelfTags.contains(tagName) &&
+    if (_closeSelfTags.contains(tagName) &&
         this._getStackLastItem() == tagName) {
       this._parseEndTag(tagName);
     }
 
-    if (this._emptyTags.contains(tagName)) {
+    if (_emptyTags.contains(tagName)) {
       unary = 1;
     }
 
@@ -413,7 +413,7 @@ class HtmlParser {
           value = match[3];
         } else if (match[4] != null) {
           value = match[4];
-        } else if (this._fillAttrs.contains(attribute) != null) {
+        } else if (_fillAttrs.contains(attribute) != null) {
           value = attribute;
         }
 
