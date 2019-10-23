@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class HtmlParser {
       // todo 渲染iframe
       var src = e.attributes['src'];
       if (src?.isEmpty ?? true) return;
-      if (moveCount < 1)
+      if (moveCount < 1 || Platform.isAndroid)
         widgetList.add(MyInAppWebView(
             webUrl: src,
             webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
