@@ -173,7 +173,7 @@ class CenterShowFrame extends StatelessWidget {
     return Center(
         child: FlatButton(
       onPressed: () => _navigateToIframe(context),
-      child: const Text('点击此处查看视频',
+      child: const Text('点击此处查看此内容',
           style: TextStyle(
               decoration: TextDecoration.underline, color: Colors.blue)),
     ));
