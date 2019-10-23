@@ -13,6 +13,37 @@ import 'flutter_native_html.dart';
 import 'iframe_view_page/iframe_view.dart';
 
 class HtmlParser {
+  static const List _inlineTags = const [
+    'a',
+    'abbr',
+    'acronym',
+    'applet',
+    'b',
+    'basefont',
+    'bdo',
+    'big',
+    'br',
+    'cite',
+    'code',
+    'del',
+    'dfn',
+    'em',
+    'font',
+    'i',
+    'q',
+    's',
+    'samp',
+    'small',
+    'span',
+    'strike',
+    'strong',
+    'sub',
+    'sup',
+    'tt',
+    'u',
+    'var'
+  ];
+
   TextOverflow overflow;
   int maxLines;
   String baseUrl;
@@ -121,7 +152,7 @@ class HtmlParser {
 
   bool _onlyHasText(List<dom.Element> elements) {
     for (var ele in elements) {
-      if (!HtmlTextParser.inlineTags.contains(ele.localName)) return false;
+      if (!_inlineTags.contains(ele.localName)) return false;
     }
     return true;
   }
