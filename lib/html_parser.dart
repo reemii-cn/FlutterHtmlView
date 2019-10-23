@@ -94,8 +94,8 @@ class HtmlParser {
       //     maxLines: this.maxLines,
       //   ));
     } else {
-      if (e.children.length > 0 || !_onlyHasText(e.children)) {
-        print(e.children);
+      bool isNotText = !_onlyHasText(e.children);
+      if (e.children.length > 0 && isNotText) {
         e.children.forEach((e) => _parseChildren(e, widgetList));
       } else {
         String textLocation = e.attributes['class'];
@@ -110,7 +110,6 @@ class HtmlParser {
   }
 
   TextAlign _parseTextAlign(String textLocation) {
-    debugPrint('test ===>>>>>>>>>> $textLocation');
     if (textLocation == null) return TextAlign.left;
     if (textLocation.contains('ql-align-center'))
       return TextAlign.center;
@@ -122,7 +121,7 @@ class HtmlParser {
 
   bool _onlyHasText(List<dom.Element> elements) {
     for (var ele in elements) {
-      if (HtmlTextParser.inlineTags.contains(ele.localName)) return false;
+      if (!HtmlTextParser.inlineTags.contains(ele.localName)) return false;
     }
     return true;
   }
