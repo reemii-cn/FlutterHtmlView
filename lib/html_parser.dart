@@ -94,9 +94,10 @@ class HtmlParser {
       //     maxLines: this.maxLines,
       //   ));
     } else {
-      if (e.children.length > 0 || !_onlyHasText(e.children))
+      if (e.children.length > 0 || !_onlyHasText(e.children)) {
+        print(e.children);
         e.children.forEach((e) => _parseChildren(e, widgetList));
-      else {
+      } else {
         String textLocation = e.attributes['class'];
         widgetList.add(new HtmlText(
             data: e.outerHtml,
