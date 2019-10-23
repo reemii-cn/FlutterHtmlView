@@ -81,7 +81,7 @@ class HtmlParser {
             webUrl: src,
             webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
       else {
-        widgetList.add(CenterShowFrame(url: src, name: '其他'));
+        widgetList.add(CenterShowFrame(url: src, name: ' '));
       }
       // } else if (!e.outerHtml.contains("<img") ||
       //     !e.outerHtml.contains("<video") ||
@@ -172,7 +172,10 @@ class CenterShowFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: FlatButton(
-            onPressed: () => _navigateToIframe(context),
-            child: const Text('点击此处查看')));
+      onPressed: () => _navigateToIframe(context),
+      child: const Text('点击此处查看视频',
+          style: TextStyle(
+              decoration: TextDecoration.underline, color: Colors.blue)),
+    ));
   }
 }
