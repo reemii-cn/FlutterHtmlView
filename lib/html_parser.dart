@@ -75,7 +75,7 @@ class HtmlParser {
       if (src?.isEmpty ?? true) return;
       widgetList.add(MyInAppWebView(
           webUrl: src,
-          webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 400.0)));
+          webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
       // } else if (!e.outerHtml.contains("<img") ||
       //     !e.outerHtml.contains("<video") ||
       //     !e.outerHtml.contains("<iframe") ||

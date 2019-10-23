@@ -11,20 +11,26 @@ class MyInAppWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     InAppWebView webWidget = InAppWebView(
-        initialUrl: webUrl,
-        initialHeaders: {},
-        initialOptions: {},
-        onWebViewCreated: (InAppWebViewController controller) {
-          webView = controller;
-        },
-        onLoadStart: (InAppWebViewController controller, String url) {
-          print("InAppWebView.onLoadStart: $url");
-          this.webUrl = url;
-        },
-        onProgressChanged: (InAppWebViewController controller, int progress) {
-          double prog = progress / 100;
-          print('InAppWebView.onProgressChanged: $prog');
-        });
+      initialUrl: webUrl,
+      initialHeaders: {},
+      initialOptions: {
+        'transparentBackground': true,
+        'enableViewportScale': true,
+        'suppressesIncrementalRendering': true,
+        'allowsBackForwardNavigationGestures': false,
+        'allowsLinkPreview': false,
+      },
+      onWebViewCreated: (InAppWebViewController controller) {
+        webView = controller;
+      },
+      // onLoadStart: (InAppWebViewController controller, String url) {
+      //   print("InAppWebView.onLoadStart: $url");
+      // },
+      // onProgressChanged: (InAppWebViewController controller, int progress) {
+      //   double prog = progress / 100;
+      //   print('InAppWebView.onProgressChanged: $prog');
+      // }
+    );
     return Container(
       width: webRect.width,
       height: webRect.height,
