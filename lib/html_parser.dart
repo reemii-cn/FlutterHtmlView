@@ -9,12 +9,14 @@ import 'package:html/parser.dart' show parse;
 import 'package:video_player/video_player.dart';
 
 import 'flutter_native_html.dart';
+import 'iframe_view_page/iframe_view.dart';
 
 class HtmlParser {
   TextOverflow overflow;
   int maxLines;
   String baseUrl;
   Function onLaunchFail;
+  int moveCount = 0;
 
   HtmlParser({this.baseUrl, this.onLaunchFail, this.overflow, this.maxLines});
 
@@ -73,9 +75,14 @@ class HtmlParser {
       // todo 渲染iframe
       var src = e.attributes['src'];
       if (src?.isEmpty ?? true) return;
-      widgetList.add(MyInAppWebView(
-          webUrl: src,
-          webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
+      if (moveCount < 1)
+        widgetList.add(MyInAppWebView(
+            webUrl: src,
+            webRect: const Rect.fromLTWH(0.0, 0.0, double.infinity, 300.0)));
+      else {
+        widgetList.add(CenterShowFrame(url: src, name: '其他'));
+      }
+      moveCount++;
       // } else if (!e.outerHtml.contains("<img") ||
       //     !e.outerHtml.contains("<video") ||
       //     !e.outerHtml.contains("<iframe") ||
@@ -148,5 +155,28 @@ class HtmlParser {
       docBodyChildren.forEach((e) => _parseChildren(e, widgetList));
 
     return widgetList;
+  }
+}
+
+class CenterShowFrame extends StatelessWidget {
+  final String url;
+  final String name;
+  const CenterShowFrame({
+    Key key,
+    this.url,
+    this.name,
+  }) : super(key: key);
+
+  void _navigateToIframe(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => IframeViewPage(url: url, name: name)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: FlatButton(
+            onPressed: () => _navigateToIframe(context),
+            child: const Text('点击此处查看')));
   }
 }
